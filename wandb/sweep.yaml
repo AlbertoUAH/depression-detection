@@ -1,0 +1,65 @@
+# The program to run
+program: train.py
+
+# Method can be grid, random or bayes
+method: random
+
+# Project this sweep is part of
+project: mentalrisk
+entity: albertofernandez
+
+# Metric to optimize
+metric:
+  name: val_metrics_f1
+  goal: maximize
+
+# Parameters space to search
+parameters:
+  model:
+    value: 'bertin-project/bertin-roberta-base-spanish'
+  text_to_lowercase:
+    value: 0
+  num_train_epochs:
+    value: 5
+  test_path:
+    value: './test_data_grouped.csv'
+  original_test_path:
+    value: './original_test_data.csv'
+  gold_labels_path:
+    value: './test_labels.csv'
+  report_to:
+    value: 'wandb'
+  output_dir:
+    value: 'results'
+  evaluation_strategy:
+    value: 'epoch'
+  logging_strategy:
+    value: 'steps'
+  optim:
+    value: 'adamw_hf'
+  metric_for_best_model:
+    value: 'eval_f1'
+  per_device_train_batch_size:
+    value: 8
+  per_device_eval_batch_size:
+    value: 16
+  learning_rate:
+    value: 2e-5
+  weight_decay:
+    value: 0.01
+  fp16: 
+    value: True
+  load_best_model_at_end:
+    value: True
+  save_strategy:
+    value: 'epoch'
+  save_total_limit:
+    value: 1
+  hub_strategy:
+    value: 'every_save'
+  lr_scheduler_type:
+    value: 'linear'
+  model_registry_path:
+    value: 'model-registry/bertin_roberta_base_spanish'
+  split_data:
+    value: True
